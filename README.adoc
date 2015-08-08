@@ -1,0 +1,46 @@
+= SSH Maven plugin
+
+== Goal
+
+Execute SSH operation using Maven.
+
+== Sample
+
+[source,xml]
+----
+<plugin>
+  <groupId>com.tomitribe.maven.plugins</groupId>
+  <artifactId>ssh-maven-plugin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <configuration>
+    <connections>
+      <connection>${user.name}@localhost</connection>
+    </connections>
+    <commands>
+      <command>
+        <type>SHELL</type>
+        <value>ls</value>
+      </command>
+      <command>
+        <type>SCP</type>
+        <value>/tmp/ok -> /tmp/okcopyr</value>
+      </command>
+      <command>
+        <type>SHELL</type>
+        <value>echo 'hi guy!'</value>
+      </command>
+    </commands>
+  </configuration>
+</plugin>
+----
+
+To ensure it works create in `~/.m2/settings.xml` a server entry:
+
+[source,xml]
+----
+<server>
+    <privateKey>${user.home}/.ssh/id_rsa</privateKey>
+    <passphrase>xxxx</passphrase>
+</server>
+----
+
